@@ -1,92 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no">
-  <title>hine.site</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>hine.site</title>
 
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      box-sizing: border-box;
-    }
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
 
-    body {
-      height: 100vh;
-    }
+        body {
+            height: 100vh;
+        }
 
-    .comm-flyer, svg {
-      position: fixed;
-      top: 0;
-    }
+        .comm-flyer, svg {
+            position: fixed;
+            top: 0;
+        }
 
-    .comm-flyer {
-      z-index: 500;
+        .comm-flyer {
+            z-index: 500;
 
-      top: 300px;
-      left: 600px;
-    }
-  </style>
+            top: 300px;
+            left: 600px;
+        }
+    </style>
 </head>
 <body>
 
-  <img class="comm-flyer" src="./comm-01.webp">
+    <img class="comm-flyer" src="./comm-01.webp">
 
-  <svg height="100%" width="100%">
-    <defs>
-      <radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-        <stop offset="0%" style="stop-color:rgb(227, 16, 2);stop-opacity:1" />
-        <stop offset="1000%" style="stop-color:rgb(227, 16, 2);stop-opacity:0" />
-      </radialGradient>
-    </defs>
+    <svg height="100%" width="100%">
+        <defs>
+            <radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                <stop offset="0%" style="stop-color:rgb(227, 16, 2);stop-opacity:1"/>
+                <stop offset="1000%" style="stop-color:rgb(227, 16, 2);stop-opacity:0"/>
+            </radialGradient>
+        </defs>
 
-    <circle id="circle" cx="200" cy="70" r="18" fill="url(#grad1)" />
-    <line id="laser" x1="200" y1="70" x2="200" y2="70" style="stroke:rgba(227, 16, 2, .6);stroke-width: 1" />
-  </svg>
+        <circle id="circle" cx="200" cy="70" r="18" fill="url(#grad1)"/>
+        <line id="laser" x1="200" y1="70" x2="200" y2="70" style="stroke:rgba(227, 16, 2, .6);stroke-width: 1"/>
+    </svg>
 
 
-<script src="./jquery.min.js"></script>
-<script type="text/javascript">
-  var circle = $('#circle');
-  var laser = $('#laser');
+    <script src="./jquery.min.js"></script>
+    <script type="text/javascript">
+        var circle = $('#circle');
+        var laser = $('#laser');
 
-  var circleX = 200;
-  var circleY = 70;
+        var circleX = 200;
+        var circleY = 70;
 
-  circle.attr({
-    cx: circleX,
-    cy: circleY
-  });
+        circle.attr({
+            cx: circleX,
+            cy: circleY
+        });
 
-  laser.attr({
-    x1: circleX,
-    y1: circleY,
-    x2: circleX,
-    y2: circleY
-  });
+        laser.attr({
+            x1: circleX,
+            y1: circleY,
+            x2: circleX,
+            y2: circleY
+        });
 
-  $('body').on('mousedown', '.comm-flyer', function(event){
-    laser.attr({
-      x2: event.pageX,
-      y2: event.pageY
-    });
+        $('body').on('mousedown', '.comm-flyer', function (event) {
+            laser.attr({
+                x2: event.pageX,
+                y2: event.pageY
+            });
 
-    $(this).animate({
-        width: "48px",
-        height: "62px"
-    });
+            $(this).animate({
+                width: "48px",
+                height: "62px"
+            });
 
-    // Reset laser
-    setTimeout(function ()
-    {
-      laser.attr({
-        x2: circleX,
-        y2: circleY
-      });
-    }, 50);
-  });
-</script>
+            // Reset laser
+            setTimeout(function () {
+                laser.attr({
+                    x2: circleX,
+                    y2: circleY
+                });
+            }, 50);
+        });
+    </script>
 </body>
 </html>
