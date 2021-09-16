@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>hine.site</title>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background-color: #000;
+    }
+
+    .locutus {
+      position: absolute;
+      top: 0;
+      width:  100%;
+      height: 100%;
+      object-position: 50% 50%;
+      object-fit: cover;
+      /*-webkit-animation-duration: 10s; animation-duration: 10s;
+      -webkit-animation-fill-mode: both; animation-fill-mode: both;*/
+    }
+
+    .locutus1 {
+      position: absolute;
+      top: 0;
+      width:  100%;
+      height: 100%;
+      object-position: 50% 50%;
+      object-fit: cover;
+      /*
+      -webkit-animation-duration: 10s; animation-duration: 10s;
+      -webkit-animation-fill-mode: both; animation-fill-mode: both;*/
+    }
+
+    @keyframes fadeAnimation {
+      0%   { opacity:1; }
+      50%  { opacity:0; }
+      100% { opacity:1; }
+    }
+
+    @-o-keyframes fadeAnimation{
+      0%   { opacity:1; }
+      50%  { opacity:0; }
+      100% { opacity:1; }
+    }
+
+    @-moz-keyframes fadeAnimation{
+      0%   { opacity:1; }
+      50%  { opacity:0; }
+      100% { opacity:1; }
+    }
+
+    @-webkit-keyframes fadeAnimation{
+      0%   { opacity:1; }
+      50%  { opacity:0; }
+      100% { opacity:1; }
+    }
+
+    .animate-fade {
+       -webkit-animation: fadeAnimation 5s infinite;
+       -moz-animation: fadeAnimation 5s infinite;
+       -o-animation: fadeAnimation 5s infinite;
+        animation: fadeAnimation 5s infinite;
+    }
+
+    #flyers {
+      position: fixed;
+      top: 0;
+    }
+
+    .comm-flyer {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+
+    #comm-template {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <img class="locutus" src="./locutusofborg.webp">
+  <img class="locutus animate-fade" src="./beam.webp">
+
+  <svg id="locutus1" class="locutus1" viewbox="0 0 1080 1438" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="570" cy="515" r="7" style="stroke:rgba(227, 16, 2, .6);stroke-width: 1" fill="rgba(227, 16, 2, .6)" />
+    <line id="laser" x1="0" x2="570"  y1="250" y2="515" style="stroke:rgba(227, 16, 2, .4);stroke-width: 1" />
+  </svg>
+
+  <div id="flyers"></div>
+
+  <img id="comm-template" src="./comm-01.webp">
+
+  <script src="./jquery.min.js"></script>
+  <script src="./play.js"></script>
+
+  <script type="text/javascript">
+    $(window).on('resize', function(){
+      console.log(document.documentElement.clientWidth);
+        document.getElementById('locutus1').setAttribute('viewbox', '0 0 ' + document.documentElement.clientWidth + ' ' + document.documentElement.clientHeight);
+    });
+    //document.getElementById('locutus1').setAttribute('viewbox', '0 0 ' + document.documentElement.clientWidth + ' ' + document.documentElement.clientHeight);
+  </script>
+</body>
+</html>
