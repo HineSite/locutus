@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<style>
+		body {
+			padding: 0px;
+			margin: 0px;
+		}
+		
+		.background {
+			width: 100%;
+			height: 100vh;
+		}
+		
+		.full {
+			position: absolute;
+			top: 0;
+		}
+		
+		.cover {
+			object-position: center center;
+			object-fit: cover;
+		}
+	</style>
+
+	<meta charset="utf-8">
+	<title>svg image offset</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<img id="background" class="background full cover" src="./ex_1400.jpg">
+	
+	<svg class="background full cover">
+	  <circle id="circle" cx="250" cy="250" r="18" stroke="rgba(255, 0, 0, 0)" stroke-width="1" fill="rgba(255, 0, 255, .4)" />
+	</svg>
+	
+	<script type="application/javascript" src="./jquery.min.js"></script>
+	<script type="text/javascript">//<![CDATA[
+		var backgroundWidth = 1400;
+		var backgroundHeight = 933;
+		var backgroundRatio = (backgroundWidth / backgroundHeight);
+		
+		var viewport = $(window);
+		var circle = $('#circle');
+		var circleRadius = $('#circle').attr('r');
+		
+		function log() {
+			var viewportWidth = viewport.width();
+			var viewportHeight = viewport.height();
+			var viewportRatio = (viewportWidth / viewportHeight);
+			
+			var currentWidth = 0;
+			var currentHeight = 0;
+			
+			if (viewportRatio > backgroundRatio)
+			{
+				currentWidth = viewportWidth;
+				currentHeight = (viewportWidth / backgroundRatio);
+			}
+			else
+			{
+				currentWidth = (viewportHeight * backgroundRatio);
+				currentHeight = viewportHeight;
+			} 
+			
+			var scale = (currentWidth / backgroundWidth);
+			
+			console.log(viewport.width() + 'x' + viewport.height());
+			console.log('scale: ' + scale);
+			console.log('cx: ' + (viewportWidth * .5));
+			console.log('cy: ' + (viewportHeight * .5));
+			console.log('r: ' + (circleRadius * scale));
+			
+			circle.attr('cx', (viewportWidth * .5));
+			circle.attr('cy', (viewportHeight * .5));
+			circle.attr('r', (circleRadius * scale));
+		}
+		
+		console.log('start');
+		console.log('radius: ' + circleRadius);
+		
+		log();
+		
+		$( window ).resize(function() {
+			log();
+		});
+  //]]></script>
+</body>
+</html>
