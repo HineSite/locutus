@@ -1,15 +1,15 @@
 ;(function ($) {
-    var flyerHeight = 41;
-    var flyers = $();
-    var commTemplate = $();
+    let flyerHeight = 41;
+    let flyers = $();
+    let commTemplate = $();
 
     function makeFlyer() {
-        var flyerData = {
+        let flyerData = {
             speedX: getRandom(250) / 100,
             speedY: (Math.random() < 0.5 ? -1 : 1) * (getRandom(250) / 100),
         };
 
-        var flyer = commTemplate.clone();
+        let flyer = commTemplate.clone();
         flyer.removeAttr('id');
         flyer.addClass('comm-flyer');
         flyer.data('flyer-data', flyerData);
@@ -30,19 +30,19 @@
     function launchFlyers() {
         makeFlyer();
 
-        var intervalCounter = 0;
+        let intervalCounter = 0;
         setInterval(function () {
-            var currOffset = {};
-            var data = {};
+            let currOffset = {};
+            let data = {};
 
             intervalCounter++;
-            if ((intervalCounter % 50) == 0) {
+            if ((intervalCounter % 50) === 0) {
                 intervalCounter = 0;
                 makeFlyer();
             }
 
-            for (var i = 0; i <= (flyers.children().length - 1); i++) {
-                var flyer = flyers.children().eq(i);
+            for (let i = 0; i <= (flyers.children().length - 1); i++) {
+                let flyer = flyers.children().eq(i);
 
                 currOffset = flyer.offset();
                 data = flyer.data('flyer-data');
