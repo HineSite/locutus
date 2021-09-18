@@ -30,7 +30,17 @@
             left: 400px;
         }
 
-        #boombox {
+        .comm-flyer2 {
+            top: 100px;
+            left: 200px;
+        }
+
+        .comm-flyer3 {
+            top: 200px;
+            left: 300px;
+        }
+
+        .boombox {
             display: none;
             position: fixed;
             z-index: 510;
@@ -57,6 +67,8 @@
 <body>
 
     <img class="comm-flyer" width="32px" src="./comm-01.webp">
+    <img class="comm-flyer comm-flyer2" width="32px" src="./comm-01.webp">
+    <img class="comm-flyer comm-flyer3" width="32px" src="./comm-01.webp">
 
     <svg height="100%" width="100%">
         <defs>
@@ -70,7 +82,7 @@
         <line id="laser" x1="200" y1="70" x2="200" y2="70" style="stroke:rgba(227, 16, 2, .6);stroke-width: 1"/>
     </svg>
 
-    <div id="boombox">
+    <div id="boombox-template" class="boombox">
         <div class="row">
             <div class="box"></div>
             <div class="box" style="background-color: #ff7d30;"></div>
@@ -157,7 +169,7 @@
     <script type="text/javascript">
         let circle = $('#circle');
         let laser = $('#laser');
-        let boomBox = $('#boombox');
+        let boomBoxTemplate = $('#boombox-template')
 
         let circleX = 200;
         let circleY = 70;
@@ -176,6 +188,7 @@
 
         $('body').on('mousedown', '.comm-flyer', function (event) {
             let badge = $(this);
+            let boomBox = boomBoxTemplate.clone().removeAttr('id').appendTo('body');
 
             laser.attr({
                 x2: event.pageX,
@@ -202,6 +215,9 @@
                     opacity: 0
                 }, {
                     duration: 500,
+                    complete: function () {
+                        boomBox.remove();
+                    }
                 });
             });
 
