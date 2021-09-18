@@ -18,32 +18,67 @@
             height: 100vh;
         }
 
-        .comm-flyer, svg, #boombox {
+        .comm-flyer, svg {
             position: fixed;
             top: 0;
         }
 
-        .comm-flyer, #boombox {
+        .comm-flyer {
             z-index: 500;
 
-            top: 300px;
-            left: 600px;
+            top: 200px;
+            left: 400px;
+        }
+
+        #boombox {
+            display: none;
+            position: fixed;
+            z-index: 510;
         }
 
         .row {
-            height: 6px;
+            font-size: 0;
         }
 
         .box {
             background-color: orange;
             width: 10px;
-            height: 100%;
+            height: 6px;
+
+            display: inline-block;
+            position: relative;
+        }
+
+        .row .box:nth-child(1) {
+            background-color: orange;
+        }
+
+        .row .box:nth-child(2) {
+            background-color: green;
+        }
+
+        .row .box:nth-child(3) {
+            background-color: blue;
+        }
+
+        .row .box:nth-child(4) {
+            background-color: red;
+        }
+
+        .row .box:nth-child(5) {
+            background-color: yellow;
+        }
+
+        .hide {
+            opacity: 0;
+
+            transition: 200ms;
         }
     </style>
 </head>
 <body>
 
-    <img class="comm-flyer" src="./comm-01.webp">
+    <img class="comm-flyer" width="32px" src="./comm-01.webp">
 
     <svg height="100%" width="100%">
         <defs>
@@ -57,86 +92,16 @@
         <line id="laser" x1="200" y1="70" x2="200" y2="70" style="stroke:rgba(227, 16, 2, .6);stroke-width: 1"/>
     </svg>
 
-    <div id="boombox">
-        <div class="row">
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-        </div>
-        <div class="row">
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-        </div>
-        <div class="row">
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-        </div>
-        <div class="row">
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-        </div>
-        <div class="row">
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-        </div>
-        <div class="row">
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-        </div>
-        <div class="row">
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-        </div>
-        <div class="row">
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-        </div>
-        <div class="row">
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-        </div>
-        <div class="row">
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-        </div>
-    </div>
+    <div id="boombox"><div class="row"><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div></div><div class="row"><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div></div><div class="row"><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div></div><div class="row"><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div></div><div class="row"><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div></div><div class="row"><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div></div><div class="row"><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div></div><div class="row"><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div></div><div class="row"><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div></div><div class="row"><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div></div></div>
 
     <script src="./jquery.min.js"></script>
     <script type="text/javascript">
-        var circle = $('#circle');
-        var laser = $('#laser');
+        let circle = $('#circle');
+        let laser = $('#laser');
+        let boomBox = $('#boombox');
 
-        var circleX = 200;
-        var circleY = 70;
+        let circleX = 200;
+        let circleY = 70;
 
         circle.attr({
             cx: circleX,
@@ -151,14 +116,34 @@
         });
 
         $('body').on('mousedown', '.comm-flyer', function (event) {
+            let badge = $(this);
+
             laser.attr({
                 x2: event.pageX,
                 y2: event.pageY
             });
 
-            $(this).animate({
+            badge.animate({
                 width: "48px",
                 height: "62px"
+            });
+
+            let badgeOffset = badge.offset();
+            badge.hide();
+            boomBox.css({
+                top: badgeOffset.top,
+                left: badgeOffset.left,
+                display: 'block'
+            });
+
+            boomBox.find('.box').each(function (i, e) {
+                $(this).animate({
+                    top: getRandomWithNegative(100),
+                    left: getRandomWithNegative(100),
+                    opacity: 0
+                }, {
+                    duration: 500,
+                });
             });
 
             // Reset laser
@@ -169,7 +154,14 @@
                 });
             }, 50);
         });
+        function getRandomWithNegative(max) {
+            let random = Math.random();
+            let negative = random < .5;
 
+            let rando = (random * max);
+
+            return (negative ? -rando : rando);
+        }
         function explode() {
 
         }
