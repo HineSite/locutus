@@ -2,8 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no">
     <title>hine.site</title>
 
+    <link rel="stylesheet" type="text/css" href="./css/flyers.css" />
+    <link rel="stylesheet" type="text/css" href="./css/locutus.css" />
     <style>
         html, body {
             margin: 0;
@@ -16,88 +19,6 @@
             height: 100vh;
             background-color: #000;
         }
-
-        .locutus {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            object-position: 50% 50%;
-            object-fit: cover;
-        }
-
-        @keyframes fadeAnimation {
-            0% {
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-
-        @-o-keyframes fadeAnimation {
-            0% {
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-
-        @-moz-keyframes fadeAnimation {
-            0% {
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-
-        @-webkit-keyframes fadeAnimation {
-            0% {
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-
-        .animate-fade {
-            opacity: 0;
-
-            -webkit-animation: 5s ease 500ms infinite fadeAnimation;
-            -moz-animation: 5s ease 500ms infinite fadeAnimation;
-            -o-animation: 5s ease 500ms infinite fadeAnimation;
-            animation: 5s ease 500ms infinite fadeAnimation;
-        }
-
-        #flyers {
-            position: fixed;
-            top: 0;
-        }
-
-        .comm-flyer {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-        }
-
-        #comm-template {
-            display: none;
-        }
     </style>
 </head>
 <body>
@@ -107,9 +28,91 @@
     <div id="flyers"></div>
 
     <img id="comm-template" width="32px" src="./comm-01.webp">
+    <div id="boombox-template" class="boombox">
+        <div class="row">
+            <div class="box"></div>
+            <div class="box" style="background-color: #ff7d30;"></div>
+            <div class="box" style="background-color: #d5d5d5;"></div>
+            <div class="box" style="background-color: #d5d5d5;"></div>
+            <div class="box" style="background-color: #ff7d30;"></div>
+            <div class="box"></div>
+        </div>
+        <div class="row">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box" style="background-color: #d5d5d5;"></div>
+            <div class="box" style="background-color: #d5d5d5;"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+        <div class="row">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box" style="background-color: #cccccc;"></div>
+            <div class="box" style="background-color: #cccccc;"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+        <div class="row">
+            <div class="box"></div>
+            <div class="box" style="background-color: #d8c29e;"></div>
+            <div class="box" style="background-color: #c6c6c6;"></div>
+            <div class="box" style="background-color: #c6c6c6;"></div>
+            <div class="box" style="background-color: #cfb595;"></div>
+            <div class="box"></div>
+        </div>
+        <div class="row">
+            <div class="box" style="background-color: #dfc9a7;"></div>
+            <div class="box" style="background-color: #b9b0aa;"></div>
+            <div class="box" style="background-color: #e95600;"></div>
+            <div class="box" style="background-color: #e95600;"></div>
+            <div class="box" style="background-color: #bab7af;"></div>
+            <div class="box" style="background-color: #d2b390;"></div>
+        </div>
+        <div class="row">
+            <div class="box" style="background-color: #896749;"></div>
+            <div class="box" style="background-color: #acacac;"></div>
+            <div class="box" style="background-color: #a19b96;"></div>
+            <div class="box" style="background-color: #a19b96;"></div>
+            <div class="box" style="background-color: #b8b9b4;"></div>
+            <div class="box" style="background-color: #cdac8c;"></div>
+        </div>
+        <div class="row">
+            <div class="box" style="background-color: #aa8a6c;"></div>
+            <div class="box" style="background-color: #acacac;"></div>
+            <div class="box" style="background-color: #8c6951;"></div>
+            <div class="box" style="background-color: #8c6951;"></div>
+            <div class="box" style="background-color: #afadad;"></div>
+            <div class="box" style="background-color: #906e50;"></div>
+        </div>
+        <div class="row">
+            <div class="box"></div>
+            <div class="box" style="background-color: #9e9a99;"></div>
+            <div class="box" style="background-color: #8c6951;"></div>
+            <div class="box" style="background-color: #8c6951;"></div>
+            <div class="box" style="background-color: #665c54;"></div>
+            <div class="box"></div>
+        </div>
+        <div class="row">
+            <div class="box" style="background-color: #ffc727;"></div>
+            <div class="box" style="background-color: #949494;"></div>
+            <div class="box" style="background-color: #866242;"></div>
+            <div class="box" style="background-color: #866242;"></div>
+            <div class="box" style="background-color: #dddddd;"></div>
+            <div class="box" style="background-color: #ffc727;"></div>
+        </div>
+        <div class="row">
+            <div class="box" style="background-color: #dddddd;"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box" style="background-color: #dddddd;"></div>
+        </div>
+    </div>
 
-    <script src="./jquery.min.js"></script>
-    <script src="./play.js"></script>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/play.js"></script>
 
     <script type="text/javascript">
 
