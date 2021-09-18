@@ -28,57 +28,59 @@
 
         @keyframes fadeAnimation {
             0% {
-                opacity: 1;
-            }
-            50% {
                 opacity: 0;
             }
-            100% {
+            50% {
                 opacity: 1;
+            }
+            100% {
+                opacity: 0;
             }
         }
 
         @-o-keyframes fadeAnimation {
             0% {
-                opacity: 1;
-            }
-            50% {
                 opacity: 0;
             }
-            100% {
+            50% {
                 opacity: 1;
+            }
+            100% {
+                opacity: 0;
             }
         }
 
         @-moz-keyframes fadeAnimation {
             0% {
-                opacity: 1;
-            }
-            50% {
                 opacity: 0;
             }
-            100% {
+            50% {
                 opacity: 1;
+            }
+            100% {
+                opacity: 0;
             }
         }
 
         @-webkit-keyframes fadeAnimation {
             0% {
-                opacity: 1;
-            }
-            50% {
                 opacity: 0;
             }
-            100% {
+            50% {
                 opacity: 1;
+            }
+            100% {
+                opacity: 0;
             }
         }
 
         .animate-fade {
-            -webkit-animation: fadeAnimation 5s infinite;
-            -moz-animation: fadeAnimation 5s infinite;
-            -o-animation: fadeAnimation 5s infinite;
-            animation: fadeAnimation 5s infinite;
+            opacity: 0;
+
+            -webkit-animation: 5s ease 500ms infinite fadeAnimation;
+            -moz-animation: 5s ease 500ms infinite fadeAnimation;
+            -o-animation: 5s ease 500ms infinite fadeAnimation;
+            animation: 5s ease 500ms infinite fadeAnimation;
         }
 
         #flyers {
@@ -104,7 +106,7 @@
 
     <div id="flyers"></div>
 
-    <img id="comm-template" src="./comm-01.webp">
+    <img id="comm-template" width="32px" src="./comm-01.webp">
 
     <script src="./jquery.min.js"></script>
     <script src="./play.js"></script>
