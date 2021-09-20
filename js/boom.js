@@ -18,25 +18,32 @@
         y2: circleY
     });
 
-    $('body').on('mousedown', '.comm-flyer', function (event) {
-        let badge = $(this);
+    $('#flyers').on('mousedown', '.comm-flyer', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        let flyer = $(this);
         let boomBox = boomBoxTemplate.clone().removeAttr('id').appendTo('body');
+
+        let flyerData = flyer.data('flyer-data');
+        if (flyerData)
+            flyerData.stop = true;
 
         laser.attr({
             x2: event.pageX,
             y2: event.pageY
         });
 
-        badge.animate({
+        flyer.animate({
             width: "48px",
             height: "62px"
         });
 
-        let badgeOffset = badge.offset();
-        badge.hide();
+        let flyerOffset = flyer.offset();
+        flyer.hide();
         boomBox.css({
-            top: badgeOffset.top,
-            left: badgeOffset.left,
+            top: flyerOffset.top,
+            left: flyerOffset.left,
             display: 'block'
         });
 
