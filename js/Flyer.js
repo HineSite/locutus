@@ -12,6 +12,7 @@ export class Flyer {
     #posX = 0;
     #posY = 0;
     #moving = false;
+    #destroyed = false;
 
     constructor(startX, startY, speedX, speedY) {
         this.#id = Flyer.#idCounter++;
@@ -63,6 +64,7 @@ export class Flyer {
 
     destroy() {
         this.#flyer.remove();
+        this.#destroyed = true;
     }
 
     onMouseDown(callback) {
@@ -94,5 +96,9 @@ export class Flyer {
 
     get startY() {
         return this.#startY;
+    }
+
+    get destroyed() {
+        return this.#destroyed;
     }
 }

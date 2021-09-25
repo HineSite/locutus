@@ -1,5 +1,6 @@
 import { GameLoop } from './GameLoop.js';
 import { Flyer } from './Flyer.js';
+import { Boom } from './Boom.js';
 
 (function ($) {
     $(function() {
@@ -16,6 +17,7 @@ import { Flyer } from './Flyer.js';
         let documentHasFocus = true;
 
         Flyer.initialize($('#comm-template').removeAttr('id'), $('#flyers'));
+        Boom.initialize($('#boombox-template').removeAttr('id'), $('body'));
 
         gameLoop.logger = (type, message) => {
             if (type !== GameLoop.LogType.DEBUG)
@@ -95,7 +97,7 @@ import { Flyer } from './Flyer.js';
             );
 
             flyer.initialize();
-            flyer.onMouseDown(onMouseDown);
+            flyer.onMouseDown(flyerOnMouseDown);
             flyer.start();
 
             flyers.push(flyer);
@@ -129,9 +131,11 @@ import { Flyer } from './Flyer.js';
             return (posY > document.documentElement.clientHeight || posY < -flyerHeight);
         }
 
-        function onMouseDown()
+        function flyerOnMouseDown()
         {
-            console.log('clicky: ' + this.#id);
+            this.stop();
+            new Boom(this.posY, this.posX).runAnimation();
+            this.destroy();
         }
 
         function onRun (delay) {
@@ -149,7 +153,6 @@ import { Flyer } from './Flyer.js';
                 createFlyer();
             }
 
-            let destroyedFlyers = [];
             let flyer = null;
             for (let i = 0; i < flyers.length; i++) {
                 flyer = flyers[i];
@@ -162,14 +165,13 @@ import { Flyer } from './Flyer.js';
 
                     log(GameLoop.LogType.DEBUG, 'flyer', 'flyerId: ' + flyer.id + ' | flyerPos: ' + flyer.posX + 'x' + flyer.posY + ' | flyerStart: ' + flyer.startX + 'x' + flyer.startY);
                     flyer.destroy();
-                    destroyedFlyers.push(flyer.id);
                 }
 
                 flyer.move(delay);
             }
 
             // Remove destroyed flyers
-            flyers = flyers.filter(flyer => !destroyedFlyers.includes(flyer.id));
+            flyers = flyers.filter(flyer => !flyer.destroyed);
         }
 
         function onStart () {
