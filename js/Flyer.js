@@ -65,6 +65,17 @@ export class Flyer {
         this.#flyer.remove();
     }
 
+    onMouseDown(callback) {
+        if (typeof callback === 'function') {
+            this.#flyer.one('mousedown', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+
+                callback.bind(this)();
+            });
+        }
+    }
+
     get id() {
         return this.#id;
     }

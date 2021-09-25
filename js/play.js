@@ -38,82 +38,78 @@ import { Flyer } from './Flyer.js';
         }
 
         function createFlyer() {
-            let pos = getRandom(1, 4);
-            let flyer = null;
+            let startingEdge = getRandom(1, 4);
+            let flyerSettings = {};
 
-            if (pos === 1) {
-                flyer = createFlyerTop();
+            switch (startingEdge) {
+                case 1: { // start from top of screen
+                    flyerSettings = {
+                        startX: getRandom(0, document.documentElement.clientWidth),
+                        startY: -flyerHeight,
+                        speedX: getRandomFlyerSpeed(true),
+                        speedY: getRandomFlyerSpeed(false)
+                    };
+
+                    break;
+                }
+
+                case 2: { // start from right of screen
+                    flyerSettings = {
+                        startX: document.documentElement.clientWidth + flyerWidth,
+                        startY: getRandom(0, document.documentElement.clientHeight),
+                        speedX: -getRandomFlyerSpeed(false),
+                        speedY: getRandomFlyerSpeed(true)
+                    };
+
+                    break;
+                }
+
+                case 3: { // start from bottom of screen
+                    flyerSettings = {
+                        startX: getRandom(0, document.documentElement.clientWidth),
+                        startY: document.documentElement.clientHeight + flyerHeight,
+                        speedX: getRandomFlyerSpeed(true),
+                        speedY: -getRandomFlyerSpeed(false)
+                    };
+
+                    break;
+                }
+
+                default: { // start from left of screen
+                    flyerSettings = {
+                        startX: -flyerWidth,
+                        startY: getRandom(0, document.documentElement.clientHeight),
+                        speedX: getRandomFlyerSpeed(false),
+                        speedY: getRandomFlyerSpeed(true)
+                    };
+
+                    break;
+                }
             }
-            else if (pos === 2) {
-                flyer = createFlyerRight();
-            }
-            else if (pos ===3) {
-                flyer = createFlyerBottom();
-            }
-            else {
-                flyer = createFlyerLeft();
-            }
+
+            let flyer = new Flyer(
+                flyerSettings.startX,
+                flyerSettings.startY,
+                flyerSettings.speedX,
+                flyerSettings.speedY
+            );
 
             flyer.initialize();
+            flyer.onMouseDown(onMouseDown);
             flyer.start();
 
             flyers.push(flyer);
         }
 
-        function createFlyerTop() {
-            let sign = getRandom(1, 2);
-            let speedX = getRandomFlyerSpeed();
-            speedX = (sign === 1 ? speedX : -speedX);
+        function getRandomFlyerSpeed (includeNegative) {
+            let speed = getRandom(flyerSpeed - flyerSpeedVariation, flyerSpeed + flyerSpeedVariation);
 
-            return new Flyer(
-                getRandom(0, document.documentElement.clientWidth),
-                -flyerHeight,
-                speedX,
-                getRandomFlyerSpeed()
-            );
-        }
+            if (includeNegative) {
+                let sign = getRandom(1, 2);
+                speed = (sign === 1 ? speed : -speed);
+            }
 
-        function createFlyerRight() {
-            let sign = getRandom(1, 2);
-            let speedY = getRandomFlyerSpeed();
-            speedY = (sign === 1 ? speedY : -speedY);
-
-            return new Flyer(
-                document.documentElement.clientWidth + flyerWidth,
-                getRandom(0, document.documentElement.clientHeight),
-                -getRandomFlyerSpeed(),
-                speedY
-            );
-        }
-
-        function createFlyerBottom() {
-            let sign = getRandom(1, 2);
-            let speedX = getRandomFlyerSpeed();
-            speedX = (sign === 1 ? speedX : -speedX);
-
-            return new Flyer(
-                getRandom(0, document.documentElement.clientWidth),
-                document.documentElement.clientHeight + flyerHeight,
-                speedX,
-                -getRandomFlyerSpeed()
-            );
-        }
-
-        function createFlyerLeft() {
-            let sign = getRandom(1, 2);
-            let speedY = getRandomFlyerSpeed();
-            speedY = (sign === 1 ? speedY : -speedY);
-
-            return new Flyer(
-                -flyerWidth,
-                getRandom(0, document.documentElement.clientHeight),
-                getRandomFlyerSpeed(),
-                speedY
-            );
-        }
-
-        function getRandomFlyerSpeed () {
-            return getRandom(flyerSpeed - flyerSpeedVariation, flyerSpeed + flyerSpeedVariation);
+            return speed;
         }
 
         function getRandom(min, max) {
@@ -131,6 +127,11 @@ import { Flyer } from './Flyer.js';
 
         function isFlyerOffScreenY(posY) {
             return (posY > document.documentElement.clientHeight || posY < -flyerHeight);
+        }
+
+        function onMouseDown()
+        {
+            console.log('clicky: ' + this.#id);
         }
 
         function onRun (delay) {
