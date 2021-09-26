@@ -4,7 +4,7 @@ import { Boom } from './Boom.js';
 
 (function ($) {
     $(function() {
-        let debugLogs = true;
+        let debugLogs = false;
         let gameLoop = new GameLoop(onRun, onStart, onStop, onPause, onResume, 60);
 
         let flyers = [];

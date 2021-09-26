@@ -2,6 +2,8 @@
     display: none;
     position: fixed;
     z-index: 510;
+
+    pointer-events: none;
 }
 
 .row {
