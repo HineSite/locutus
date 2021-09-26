@@ -78,6 +78,19 @@ export class Flyer {
         }
     }
 
+    toString() {
+        return 'id: ' + this.#id + ' | ' +
+                'startX: ' + this.#startX + ' | ' +
+                'startY: ' + this.#startY + ' | ' +
+                'speedX: ' + this.#speedX + ' | ' +
+                'speedY: ' + this.#speedY + ' | ' +
+                'posX: ' + this.#posX + ' | ' +
+                'posY: ' + this.#posY + ' | ' +
+                'moving: ' + this.#moving + ' | ' +
+                'destroyed: ' + this.#destroyed
+        ;
+    }
+
     get id() {
         return this.#id;
     }
