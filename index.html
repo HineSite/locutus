@@ -20,11 +20,31 @@
             height: 100vh;
             background-color: #000;
         }
+
+        .svg-background {
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            object-position: center center;
+            object-fit: cover;
+        }
     </style>
 </head>
 <body>
-    <img class="locutus" draggable="false" src="./locutusofborg.webp">
-    <img id="locutus-laser" class="locutus animate-fade" draggable="false" src="./beam.webp">
+    <img id="locutus" class="locutus" draggable="false" src="./locutusofborg.webp">
+
+    <svg class="svg-background">
+        <defs>
+            <radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                <stop offset="0%" style="stop-color:rgb(227, 16, 2);stop-opacity:1"/>
+                <stop offset="1000%" style="stop-color:rgb(227, 16, 2);stop-opacity:0"/>
+            </radialGradient>
+        </defs>
+
+        <circle id="circle" class="animate-fade" cx="569" cy="515" r="8" fill="url(#grad1)"/>
+        <line id="laser" class="animate-fade" x1="0" y1="250" x2="569" y2="515" style="stroke:rgba(227, 16, 2, .3);stroke-width: 2"/>
+    </svg>
 
     <div id="flyers"></div>
 
@@ -116,7 +136,85 @@
     <script type="module" src="./js/play.js"></script>
 
     <script type="text/javascript">
+        ;(function ($) {
+            $(function () {
+                let locutus = $('#locutus').get(0);
+                let viewport = $(window);
+                let circle = $('#circle');
+                let laser = $('#laser');
 
+                let circleRadius = circle.attr('r');
+                let circleX = circle.attr('cx');
+                let circleY = circle.attr('cy');
+                let laserX1 = laser.attr('x1');
+                let laserY1 = laser.attr('y1');
+
+                let backgroundWidth = locutus.naturalWidth;
+                let backgroundHeight = locutus.naturalHeight;
+                let backgroundRatio = (backgroundWidth / backgroundHeight);
+
+                function updateSvgBackground() {
+                    let viewportWidth = viewport.width();
+                    let viewportHeight = viewport.height();
+                    let viewportRatio = (viewportWidth / viewportHeight);
+
+                    let currentWidth = 0;
+                    let currentHeight = 0;
+
+                    if (viewportRatio > backgroundRatio)
+                    {
+                        // Here the background's height is larger than the viewport's height.
+
+                        currentWidth = viewportWidth;
+                        currentHeight = (viewportWidth / backgroundRatio);
+                    }
+                    else
+                    {
+                        // Here the background's width is larger than the viewport's width.
+
+                        currentWidth = (viewportHeight * backgroundRatio);
+                        currentHeight = viewportHeight;
+                    }
+
+                    let scale = (currentWidth / backgroundWidth);
+
+                    // The background image is centered in the viewport, so we need to calculate for that.
+                    let offsetX = ((currentWidth - viewportWidth) * .5);
+                    let offsetY = ((currentHeight - viewportHeight) * .5);
+
+                    let cx = ((circleX * scale) - offsetX);
+                    let cy = ((circleY * scale) - offsetY);
+                    let r = (circleRadius * scale);
+                    let lx1 = ((laserX1 * scale) - offsetX);
+                    let ly1 = ((laserY1 * scale) - offsetY);
+
+                    //console.log('viewport: ' + viewport.width() + 'x' + viewport.height() + ' | ' + viewportRatio);
+                    //console.log('background: ' + backgroundWidth + 'x' + backgroundHeight + ' | ' + backgroundRatio);
+                    //console.log('scale: ' + scale);
+                    //console.log('offsetX: ' + offsetX);
+                    //console.log('offsetY: ' + offsetY);
+                    //console.log('cx: ' + cx);
+                    //console.log('cy: ' + cy);
+                    //console.log('r: ' + r);
+                    //console.log('laserX1: ' + lx1);
+                    //console.log('laserY1: ' + ly1);
+
+                    circle.attr('cx',  cx);
+                    circle.attr('cy', cy);
+                    circle.attr('r', r);
+
+                    laser.attr('x1',  lx1);
+                    laser.attr('y1', ly1);
+                    laser.attr('x2',  cx);
+                    laser.attr('y2', cy);
+                }
+
+                updateSvgBackground();
+                viewport.resize(function() {
+                    updateSvgBackground();
+                });
+            });
+        })(jQuery);
     </script>
 </body>
 </html>
