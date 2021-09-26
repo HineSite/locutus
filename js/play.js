@@ -2,7 +2,7 @@ import { GameLoop } from './GameLoop.js';
 import { Flyer } from './Flyer.js';
 import { Boom } from './Boom.js';
 
-(function ($) {
+;(function ($) {
     $(function() {
         let debugLogs = false;
         let gameLoop = new GameLoop(onRun, onStart, onStop, onPause, onResume, 60);
@@ -136,6 +136,26 @@ import { Boom } from './Boom.js';
             this.stop();
             new Boom(this.posY, this.posX).runAnimation();
             this.destroy();
+
+            let circle = $('#circle');
+            let laser = $('#laser');
+
+            let orgX1 = laser.attr('x1');
+            let orgY1 = laser.attr('y1');
+
+            // Shoot
+            laser.removeClass('animate-fade');
+            circle.removeClass('animate-fade');
+            laser.attr('x1', this.posX + (flyerWidth * .5));
+            laser.attr('y1', this.posY + (flyerHeight * .5));
+
+            setTimeout(() => {
+                // Then reset shooter
+                laser.addClass('animate-fade');
+                circle.addClass('animate-fade');
+                laser.attr('x1', orgX1);
+                laser.attr('y1', orgY1);
+            }, 200);
         }
 
         function onRun (delay) {
