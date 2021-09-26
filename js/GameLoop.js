@@ -53,9 +53,9 @@ export class GameLoop {
         }
 
         this.testTimestampPrecision((delta) => {
+            this.#minimumPrecision = delta;
             if (delta < this.#targetLoopInterval) {
                 this.#adjustForActualDelay = true;
-                this.#minimumPrecision = delta;
             }
 
             onReady();
@@ -150,16 +150,18 @@ export class GameLoop {
 
         this.#log(GameLoop.LogType.DEBUG, 'actualLoopDelay', actualLoopDelay);
 
-        let actualLoopDelaySeconds = (actualLoopDelay / 1000);
+
 
         if (this.#loopState ===  GameLoop.LoopState.RUNNING) {
             if (typeof this.#onRunCallback === 'function') {
-                this.#onRunCallback(this.#adjustForActualDelay ? actualLoopDelaySeconds : this.#targetLoopInterval);
+                let delay = this.#adjustForActualDelay ? actualLoopDelay : this.#targetLoopInterval;
+                this.#onRunCallback(delay, (delay / 1000));
             }
         }
         else if (this.#loopState ===  GameLoop.LoopState.PAUSED) {
             if (typeof this.#pausedCallback === 'function') {
-                this.#pausedCallback(this.#adjustForActualDelay ? actualLoopDelaySeconds : this.#pausedInterval ?? this.#targetLoopInterval);
+                let delay = this.#adjustForActualDelay ? actualLoopDelay : (this.#pausedInterval ?? this.#targetLoopInterval);
+                this.#pausedCallback(delay, (delay / 1000));
             }
         }
 

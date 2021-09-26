@@ -152,7 +152,7 @@ import { Boom } from './Boom.js';
             }, 200);
         }
 
-        function onRun (delay) {
+        function onRun (delayMilli, delaySeconds) {
             if (!document.hasFocus()) {
                 if (documentHasFocus) {
                     pause();
@@ -177,11 +177,11 @@ import { Boom } from './Boom.js';
                     (flyer.startX >= document.documentElement.clientWidth && (isFlyerOffScreenY(flyer.posY) || flyer.posX < -flyerWidth)) ||
                     (flyer.startY >= document.documentElement.clientHeight && (isFlyerOffScreenX(flyer.posX) || flyer.posY < -flyerHeight))) {
 
-                    log(GameLoop.LogType.DEBUG, 'flyer', 'flyerId: ' + flyer.id + ' | flyerPos: ' + flyer.posX + 'x' + flyer.posY + ' | flyerStart: ' + flyer.startX + 'x' + flyer.startY);
                     flyer.destroy();
                 }
 
-                flyer.move(delay);
+                log(GameLoop.LogType.DEBUG, 'flyer', flyer);
+                flyer.move(delaySeconds);
             }
 
             // Remove destroyed flyers
