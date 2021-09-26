@@ -144,18 +144,19 @@
     <script type="module" src="./js/play.js"></script>
 
     <script type="text/javascript">
+        let circle = $('#circle');
+        let laser = $('#laser');
+        let laserX1 = laser.attr('x1');
+        let laserY1 = laser.attr('y1');
+
         ;(function ($) {
             $(function () {
                 let locutus = $('#locutus').get(0);
                 let viewport = $(window);
-                let circle = $('#circle');
-                let laser = $('#laser');
 
                 let circleRadius = circle.attr('r');
                 let circleX = circle.attr('cx');
                 let circleY = circle.attr('cy');
-                let laserX1 = laser.attr('x1');
-                let laserY1 = laser.attr('y1');
 
                 let backgroundWidth = locutus.naturalWidth;
                 let backgroundHeight = locutus.naturalHeight;

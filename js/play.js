@@ -137,12 +137,6 @@ import { Boom } from './Boom.js';
             new Boom(this.posY, this.posX).runAnimation();
             this.destroy();
 
-            let circle = $('#circle');
-            let laser = $('#laser');
-
-            let orgX1 = laser.attr('x1');
-            let orgY1 = laser.attr('y1');
-
             // Shoot
             laser.removeClass('animate-fade');
             circle.removeClass('animate-fade');
@@ -153,8 +147,8 @@ import { Boom } from './Boom.js';
                 // Then reset shooter
                 laser.addClass('animate-fade');
                 circle.addClass('animate-fade');
-                laser.attr('x1', orgX1);
-                laser.attr('y1', orgY1);
+                laser.attr('x1', laserX1);
+                laser.attr('y1', laserY1);
             }, 200);
         }
 
