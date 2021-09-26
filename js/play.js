@@ -1,11 +1,27 @@
 import { GameLoop } from './GameLoop.js';
 import { Flyer } from './Flyer.js';
 import { Boom } from './Boom.js';
+import { SvgBackgroundMapper, SvgCircleItem, SvgLineItem } from "./SvgBackgroundMapper";
 
 ;(function ($) {
     $(function() {
         let debugLogs = false;
-        let gameLoop = new GameLoop(onRun, onStart, onStop, onPause, onResume, 60);
+        let gameLoop = new GameLoop(onRun, onStart, null, null, null, 60);
+
+        let viewport = $(window);
+        let locutus = $('#locutus').get(0);
+        let circle = $('#circle');
+        let laser = $('#laser');
+        let svgCircle = new SvgCircleItem(circle.get(0));
+        let svgLaser = new SvgLineItem(laser.get(0));
+        let bgMapper = new SvgBackgroundMapper(locutus.naturalWidth, locutus.naturalHeight, SvgBackgroundMapper.BackgroundOffset.CENTERED);
+        bgMapper.addSvgItem(svgCircle);
+        bgMapper.addSvgItem(svgLaser);
+
+        bgMapper.updateView(viewport.width(), viewport.height());
+        viewport.resize(function() {
+            bgMapper.updateView(viewport.width(), viewport.height());
+        });
 
         let flyers = [];
         let flyerWidth = 32;
@@ -16,15 +32,15 @@ import { Boom } from './Boom.js';
 
         let documentHasFocus = true;
 
-        Flyer.initialize($('#comm-template').removeAttr('id'), $('#flyers'));
-        Boom.initialize($('#boombox-template').removeAttr('id'), $('body'));
-
         gameLoop.logger = (type, message) => {
             if (type !== GameLoop.LogType.DEBUG)
                 logType(type, message);
         };
 
         gameLoop.initialize(() => {
+            Flyer.initialize($('#comm-template').removeAttr('id'), $('#flyers'));
+            Boom.initialize($('#boombox-template').removeAttr('id'), $('body'));
+
             $(window).one('click', function () {
                 gameLoop.start();
             });
@@ -140,15 +156,13 @@ import { Boom } from './Boom.js';
             // Shoot
             laser.removeClass('animate-fade');
             circle.removeClass('animate-fade');
-            laser.attr('x1', this.posX + (flyerWidth * .5));
-            laser.attr('y1', this.posY + (flyerHeight * .5));
+            svgLaser.updateScaledPosition(this.posX + (flyerWidth * .5), this.posY + (flyerHeight * .5));
 
             setTimeout(() => {
                 // Then reset shooter
                 laser.addClass('animate-fade');
                 circle.addClass('animate-fade');
-                laser.attr('x1', laserX1);
-                laser.attr('y1', laserY1);
+                svgLaser.resetPosition();
             }, 200);
         }
 
@@ -193,24 +207,6 @@ import { Boom } from './Boom.js';
 
             log(GameLoop.LogType.INFO, 'screenWidth', document.documentElement.clientWidth);
             log(GameLoop.LogType.INFO, 'screenHeight', document.documentElement.clientHeight);
-        }
-
-        function onStop () {
-            if (gameLoop.loopState !== GameLoop.LoopState.STOPPED)
-                return;
-
-            log(GameLoop.LogType.INFO, 'Loop State', 'Stopped');
-        }
-
-        function onPause () {
-            if (gameLoop.loopState !== GameLoop.LoopState.PAUSED)
-                return;
-
-            log(GameLoop.LogType.INFO, 'Loop State', 'Paused');
-        }
-
-        function onResume () {
-            log(GameLoop.LogType.INFO, 'Loop State', 'Resumed');
         }
 
         function log(type, title, message) {
