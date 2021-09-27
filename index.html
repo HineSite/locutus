@@ -1,66 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>hine.site</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>hine.site</title>
 
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      box-sizing: border-box;
-    }
+    <link rel="stylesheet" type="text/css" href="./css/flyers.css" />
+    <link rel="stylesheet" type="text/css" href="./css/locutus.css" />
+    <link rel="stylesheet" type="text/css" href="./css/boom.css" />
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
 
-    body {
-      height: 100vh;
-    }
+        body {
+            height: 100vh;
+            background-color: #000;
+        }
 
-    img {
-      position: absolute;
-      top: 0;
-      width:  100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: 50% 50%;
-      -webkit-animation-duration: 10s; animation-duration: 10s;
-      -webkit-animation-fill-mode: both; animation-fill-mode: both;
-    }
+        .svg-background {
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            object-position: center center;
+            object-fit: cover;
+        }
 
-    @keyframes fadeAnimation {
-      0%   { opacity:1; }
-      50%  { opacity:0; }
-      100% { opacity:1; }
-    }
-
-    @-o-keyframes fadeAnimation{
-      0%   { opacity:1; }
-      50%  { opacity:0; }
-      100% { opacity:1; }
-    }
-
-    @-moz-keyframes fadeAnimation{
-      0%   { opacity:1; }
-      50%  { opacity:0; }
-      100% { opacity:1; }
-    }
-
-    @-webkit-keyframes fadeAnimation{
-      0%   { opacity:1; }
-      50%  { opacity:0; }
-      100% { opacity:1; }
-    }
-
-    .animate-fade {
-       -webkit-animation: fadeAnimation 5s infinite;
-       -moz-animation: fadeAnimation 5s infinite;
-       -o-animation: fadeAnimation 5s infinite;
-        animation: fadeAnimation 5s infinite;
-    }
-  </style>
+        img {
+            -khtml-user-select: none;
+            -o-user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+    </style>
 </head>
 <body>
-  <img src="./locutusofborg.webp">
-  <img class="animate-fade" src="./beam.webp">
+    <img id="locutus" class="locutus" draggable="false" src="./locutusofborg.webp">
+
+    <svg class="svg-background">
+        <defs>
+            <radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                <stop offset="0%" style="stop-color:rgb(227, 16, 2);stop-opacity:1"/>
+                <stop offset="1000%" style="stop-color:rgb(227, 16, 2);stop-opacity:0"/>
+            </radialGradient>
+        </defs>
+
+        <circle id="circle" class="animate-fade" cx="569" cy="515" r="8" fill="url(#grad1)"/>
+        <line id="laser" class="animate-fade" x1="0" y1="250" x2="569" y2="515" style="stroke:rgba(227, 16, 2, .3);stroke-width: 2"/>
+    </svg>
+
+    <div id="flyers"></div>
+
+    <img id="comm-template" width="32px" draggable="false" src="./comm-01.webp">
+    <div id="boombox-template" class="boombox">
+        <div class="row">
+            <div class="box"></div>
+            <div class="box" style="background-color: #ff7d30;"></div>
+            <div class="box" style="background-color: #d5d5d5;"></div>
+            <div class="box" style="background-color: #d5d5d5;"></div>
+            <div class="box" style="background-color: #ff7d30;"></div>
+            <div class="box"></div>
+        </div>
+        <div class="row">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box" style="background-color: #d5d5d5;"></div>
+            <div class="box" style="background-color: #d5d5d5;"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+        <div class="row">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box" style="background-color: #cccccc;"></div>
+            <div class="box" style="background-color: #cccccc;"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+        <div class="row">
+            <div class="box"></div>
+            <div class="box" style="background-color: #d8c29e;"></div>
+            <div class="box" style="background-color: #c6c6c6;"></div>
+            <div class="box" style="background-color: #c6c6c6;"></div>
+            <div class="box" style="background-color: #cfb595;"></div>
+            <div class="box"></div>
+        </div>
+        <div class="row">
+            <div class="box" style="background-color: #dfc9a7;"></div>
+            <div class="box" style="background-color: #b9b0aa;"></div>
+            <div class="box" style="background-color: #e95600;"></div>
+            <div class="box" style="background-color: #e95600;"></div>
+            <div class="box" style="background-color: #bab7af;"></div>
+            <div class="box" style="background-color: #d2b390;"></div>
+        </div>
+        <div class="row">
+            <div class="box" style="background-color: #896749;"></div>
+            <div class="box" style="background-color: #acacac;"></div>
+            <div class="box" style="background-color: #a19b96;"></div>
+            <div class="box" style="background-color: #a19b96;"></div>
+            <div class="box" style="background-color: #b8b9b4;"></div>
+            <div class="box" style="background-color: #cdac8c;"></div>
+        </div>
+        <div class="row">
+            <div class="box" style="background-color: #aa8a6c;"></div>
+            <div class="box" style="background-color: #acacac;"></div>
+            <div class="box" style="background-color: #8c6951;"></div>
+            <div class="box" style="background-color: #8c6951;"></div>
+            <div class="box" style="background-color: #afadad;"></div>
+            <div class="box" style="background-color: #906e50;"></div>
+        </div>
+        <div class="row">
+            <div class="box"></div>
+            <div class="box" style="background-color: #9e9a99;"></div>
+            <div class="box" style="background-color: #8c6951;"></div>
+            <div class="box" style="background-color: #8c6951;"></div>
+            <div class="box" style="background-color: #665c54;"></div>
+            <div class="box"></div>
+        </div>
+        <div class="row">
+            <div class="box" style="background-color: #ffc727;"></div>
+            <div class="box" style="background-color: #949494;"></div>
+            <div class="box" style="background-color: #866242;"></div>
+            <div class="box" style="background-color: #866242;"></div>
+            <div class="box" style="background-color: #dddddd;"></div>
+            <div class="box" style="background-color: #ffc727;"></div>
+        </div>
+        <div class="row">
+            <div class="box" style="background-color: #dddddd;"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box" style="background-color: #dddddd;"></div>
+        </div>
+    </div>
+
+    <script src="./js/jquery.min.js"></script>
+    <script type="module" src="./js/play.js"></script>
 </body>
 </html>

@@ -1,0 +1,15 @@
+#flyers {
+    position: fixed;
+    top: 0;
+}
+
+.comm-flyer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#comm-template {
+    display: none;
+}
