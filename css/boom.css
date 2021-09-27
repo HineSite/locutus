@@ -1,0 +1,19 @@
+.boombox {
+    display: none;
+    position: fixed;
+    z-index: 510;
+
+    pointer-events: none;
+}
+
+.row {
+    font-size: 0;
+}
+
+.box {
+    width: 8px;
+    height: 7px;
+
+    display: inline-block;
+    position: relative;
+}
