@@ -1,2 +1,2 @@
 # locutus
-Just a fun little default site.
+Resistance is futile!
