@@ -1,7 +1,7 @@
 import { GameLoop } from './GameLoop.js';
 import { Flyer } from './Flyer.js';
 import { Boom } from './Boom.js';
-import { SvgBackgroundMapper, SvgCircleItem, SvgLineItem } from "./SvgBackgroundMapper";
+import { SvgBackgroundMapper, SvgCircleItem, SvgLineItem } from "./SvgBackgroundMapper.js";
 
 ;(function ($) {
     $(function() {
